@@ -9,7 +9,8 @@
 
       <!-- Logo -->
       <Link :href="route('home')" style="display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0;">
-        <div style="position:relative;">
+            <img src="https://luxyformation.re/wp-content/uploads/2024/03/cropped-horizontal_luxy_logo-300x97.png" alt="" class="w-40">
+        <!-- <div style="position:relative;">
           <div style="width:40px; height:40px; border-radius:11px; background:linear-gradient(135deg,#C9A84C,#E2C97E); display:flex; align-items:center; justify-content:center; position:relative; z-index:1; box-shadow:0 4px 14px rgba(201,168,76,0.35);">
             <span style="color:#0D1B2A; font-weight:900; font-size:19px; line-height:1;">L</span>
           </div>
@@ -18,7 +19,7 @@
         <div>
           <span style="font-weight:900; font-size:17px; display:block; line-height:1.15; color:#0D1B2A; letter-spacing:-0.025em;">Luxy</span>
           <span style="color:#C9A84C; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; display:block; font-weight:700;">Formation</span>
-        </div>
+        </div> -->
       </Link>
 
       <!-- Menu desktop -->

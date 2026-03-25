@@ -3,7 +3,7 @@
     <Head title="Nos formations" />
 
     <!-- Hero -->
-    <section style="background:#FFFFFF; padding:140px 0 80px; position:relative; overflow:hidden;">
+    <!-- <section style="background:#FFFFFF; padding:140px 0 80px; position:relative; overflow:hidden;">
       <div class="orb orb-1" />
       <div class="hero-grid" />
       <div style="position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(to bottom, transparent, #C9A84C, transparent);" />
@@ -20,8 +20,176 @@
           Choisissez votre domaine de formation et découvrez les programmes disponibles à La Réunion.
         </p>
       </div>
-    </section>
+    </section> -->
 
+    <!-- Hero -->
+    <section style="position:relative; background:#FFFFFF; overflow:hidden; min-height:540px;">
+
+      <!-- Orbe -->
+      <div class="orb orb-1" />
+
+      <!-- Grille — z-index:3 pour passer devant l'image -->
+      <div class="hero-grid" style="z-index:3;" />
+
+      <!-- Bande dorée gauche -->
+      <div style="position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(to bottom, transparent, #C9A84C, transparent); z-index:4;" />
+
+      <div style="max-width:1320px; margin:0 auto; padding:0 3rem; position:relative; z-index:1; width:100%; min-height:540px;">
+
+        <!-- Colonne texte — au-dessus de la grille -->
+        <div style="max-width:580px; padding:140px 0 100px; position:relative; z-index:4;">
+
+          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25); border-radius:100px; padding:8px 16px; margin-bottom:28px; width:fit-content;">
+            <PhGraduationCap style="width:14px; height:14px; color:#C9A84C;" />
+            <span style="color:#A07828; font-size:13px; font-weight:600;">Catalogue de formations</span>
+          </div>
+
+          <h1 style="font-size:clamp(40px,5vw,72px); font-weight:900; color:#0D1B2A; letter-spacing:-0.03em; line-height:1.05; margin:0 0 24px;">
+            Nos formations
+          </h1>
+
+          <p style="font-size:18px; color:rgba(13,27,42,0.55); max-width:460px; line-height:1.75; margin:0 0 40px;">
+            Choisissez votre domaine de formation et découvrez les programmes disponibles à La Réunion.
+          </p>
+
+          <!-- Mini stats -->
+          <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px; background:#FAF7F2; border-radius:100px; border:1px solid rgba(13,27,42,0.08);">
+              <PhGraduationCap style="width:14px; height:14px; color:#C9A84C;" weight="fill" />
+              <span style="font-size:13px; font-weight:700; color:rgba(13,27,42,0.65);">
+                {{ totalFormations }} formation{{ totalFormations > 1 ? 's' : '' }} disponible{{ totalFormations > 1 ? 's' : '' }}
+              </span>
+            </div>
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px; background:#FAF7F2; border-radius:100px; border:1px solid rgba(13,27,42,0.08);">
+              <PhTag style="width:14px; height:14px; color:#C9A84C;" weight="fill" />
+              <span style="font-size:13px; font-weight:700; color:rgba(13,27,42,0.65);">
+                {{ categories.length }} domaine{{ categories.length > 1 ? 's' : '' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne image — absolue à droite, derrière la grille -->
+        <div
+          style="position:absolute; right:0; top:0; width:25%; pointer-events:none;"
+          class="hero-image-col"
+        >
+          <!-- Fond arrondi crème -->
+          <div style="
+            position:absolute;
+            bottom:0;
+            right:8%;
+            width:420px;
+            height:95%;
+            background:linear-gradient(180deg, rgba(255,255,255, 1) 0%, rgba(255,255,255, 1) 100%);
+            /* background:linear-gradient(180deg, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.14) 100%); */
+            border-radius:320px 320px 0 0;
+            border:1.5px solid rgba(201,168,76,0.15);
+            border-bottom:none;
+            z-index:0;
+          " />
+
+          <!-- Badge certifiante -->
+          <div
+            style="
+              position:absolute;
+              top:170px;
+              right:-20%;
+              background:white;
+              border-radius:14px;
+              border:1.5px solid rgba(201,168,76,0.22);
+              padding:12px 18px;
+              box-shadow:0 4px 20px rgba(13,27,42,0.08);
+              z-index:5;
+              display:flex;
+              align-items:center;
+              gap:10px;
+              white-space:nowrap;
+            "
+            class="float-badge-1"
+          >
+            <div style="width:32px; height:32px; border-radius:9px; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.22); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <PhCertificate style="width:17px; height:17px; color:#C9A84C;" weight="fill" />
+            </div>
+            <div>
+              <div style="font-size:10px; font-weight:700; color:rgba(13,27,42,0.35); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:2px;">Formation</div>
+              <div style="font-size:13px; font-weight:800; color:#0D1B2A;">Certifiante ✓</div>
+            </div>
+          </div>
+
+          <!-- Badge financement -->
+          <div
+            style="
+              position:absolute;
+              top:260px;
+              left:-50%;
+              background:white;
+              border-radius:14px;
+              border:1.5px solid rgba(13,27,42,0.07);
+              padding:14px 20px;
+              box-shadow:0 4px 20px rgba(13,27,42,0.08);
+              z-index:5;
+              white-space:nowrap;
+            "
+            class="float-badge-2"
+          >
+            <div style="font-size:10px; font-weight:700; color:rgba(13,27,42,0.35); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px;">Financement</div>
+            <div style="font-size:13px; font-weight:800; color:#0D1B2A;">CPF éligible 💼</div>
+          </div>
+
+          <!-- Image PNG — derrière la grille (z-index:1) -->
+          <img
+            v-if="heroImage"
+            :src="heroImage"
+            alt="Formateur Luxy Formation"
+            style="
+              position:relative;
+              filter:grayscale();
+              bottom:0;
+              left:50%;
+              transform:translateX(-50%);
+              height:105%;
+              width:auto;
+              max-width:none;
+              object-fit:contain;
+              object-position:start;
+              display:block;
+              /* filter:drop-shadow(0 12px 40px rgba(13,27,42,0.1)); */
+              z-index:1;
+            "
+          />
+
+          <!-- Placeholder -->
+          <div
+            v-else
+            style="
+              position:absolute;
+              bottom:0;
+              left:50%;
+              transform:translateX(-50%);
+              width:280px;
+              height:90%;
+              border-radius:20px 20px 0 0;
+              background:rgba(201,168,76,0.06);
+              border:2px dashed rgba(201,168,76,0.25);
+              border-bottom:none;
+              display:flex;
+              flex-direction:column;
+              align-items:center;
+              justify-content:center;
+              gap:14px;
+              z-index:1;
+            "
+          >
+            <PhUser style="width:52px; height:52px; color:rgba(201,168,76,0.35);" weight="thin" />
+            <span style="font-size:12px; font-weight:600; color:rgba(13,27,42,0.3); text-align:center; padding:0 24px; line-height:1.6;">
+              Votre visuel PNG<br>ici
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
     <!-- Contenu principal -->
     <section style="background:#FAF7F2; min-height:60vh; padding:60px 0 100px;">
       <div style="max-width:1320px; margin:0 auto; padding:0 3rem;">
@@ -217,17 +385,20 @@ import PublicLayout from '@/Layouts/PublicLayout.vue'
 import FormationCard from '@/Components/Public/FormationCard.vue'
 import {
   PhGraduationCap, PhArrowRight, PhArrowLeft,
-  PhMagnifyingGlass, PhSquaresFour,
+  PhMagnifyingGlass, PhSquaresFour, PhTag,
   PhBriefcase, PhBooks, PhMonitor, PhUsers,
   PhTranslate, PhCertificate, PhChalkboardTeacher,
-  PhCode, PhTrendUp, PhGlobe,
+  PhCode, PhTrendUp, PhGlobe, PhUser,
 } from '@phosphor-icons/vue'
+
+const heroImage = "https://img.freepik.com/photos-premium/sympathique-bel-homme-beau-jeune-homme-croisant-bras-debout-fond-blanc_590464-47211.jpg?semt=ais_hybrid&w=740&q=80";
 
 const props = defineProps({
   categories:       Array,
   formations:       Object,
   selectedCategory: Object,
   filters:          Object,
+  // heroImage:        { type: String, default: null },
 })
 
 const selectedCategory = ref(props.selectedCategory ?? null)
@@ -369,9 +540,25 @@ watch(() => props.selectedCategory, (v) => { if (v) selectedCategory.value = v }
   .bento-grid { grid-template-columns:repeat(2,1fr); }
   .bento-card--large { grid-column:span 2; grid-row:span 1; }
   .bento-card--wide  { grid-column:span 1; grid-row:span 1; }
+  .hero-image-col { display:none !important; }
+
 }
 @media (max-width:640px) {
   .bento-grid { grid-template-columns:1fr; grid-auto-rows:160px; }
   .bento-card--large, .bento-card--wide { grid-column:span 1; grid-row:span 1; }
+  .hero-image-col { display:none !important; }
+
+}
+/* ── Badges flottants ── */
+
+.float-badge-1 { animation:floatA 6s ease-in-out infinite; }
+.float-badge-2 { animation:floatB 8s ease-in-out infinite 1.5s; }
+@keyframes floatA { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-8px) rotate(2deg)} }
+@keyframes floatB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+
+/* ── Masquer sur mobile ── */
+
+@media (max-width:1100px) {
+  .hero-image-col { display:none !important; }
 }
 </style>

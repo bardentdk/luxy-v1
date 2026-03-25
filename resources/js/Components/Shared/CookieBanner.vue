@@ -1,68 +1,377 @@
 <template>
-  <Teleport to="body">
-    <Transition name="cookie">
-      <div
-        v-if="showBanner"
-        class="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-md z-[9990] bg-[#0D1B2A] text-white rounded-2xl p-6 shadow-2xl border border-white/10"
-      >
-        <div class="flex items-start gap-4 mb-4 p-10">
-          <div class="w-10 h-10 rounded-xl bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0">
-            <PhCookie class="w-5 h-5 text-[#C9A84C]" weight="fill" />
-          </div>
-          <div>
-            <h3 class="font-bold text-white text-sm mb-1">Gestion des cookies</h3>
-            <p class="text-white/60 text-xs leading-relaxed">
-              Nous utilisons des cookies pour améliorer votre expérience.
-              <Link :href="route('politique-cookies')" class="text-[#C9A84C] hover:underline">En savoir plus</Link>
-            </p>
-          </div>
-        </div>
+  <Transition name="cookie-slide">
+    <div
+      v-if="visible"
+      style="position:fixed; bottom:0; left:0; right:0; z-index:9000; padding:0 0 32px; pointer-events:none;"
+    >
+      <div style="max-width:1320px; margin:0 auto; padding:0 3rem;">
+        <div
+          style="
+            background:white;
+            border-radius:28px 28px 0 0;
+            border:1.5px solid rgba(13,27,42,0.08);
+            border-bottom:none;
+            box-shadow:0 -8px 60px rgba(13,27,42,0.12), 0 -1px 0 rgba(201,168,76,0.15);
+            overflow:hidden;
+            pointer-events:all;
+            position:relative;
+          "
+        >
+          <!-- Ligne dorée top -->
+          <div style="height:3px; background:linear-gradient(90deg, transparent 0%, #C9A84C 25%, #E2C97E 50%, #C9A84C 75%, transparent 100%);" />
 
-        <div class="flex gap-3">
-          <button
-            @click="acceptAll"
-            class="flex-1 btn-primary text-sm py-2.5 justify-center"
-          >
-            Tout accepter
-          </button>
-          <button
-            @click="rejectAll"
-            class="flex-1 bg-white/10 hover:bg-white/20 text-white text-sm font-medium py-2.5 px-4 rounded-full transition-colors"
-          >
-            Refuser
-          </button>
+          <!-- Contenu principal -->
+          <div style="padding:40px 48px 44px;">
+            <div style="display:grid; grid-template-columns:auto 1fr auto; gap:40px; align-items:center;">
+
+              <!-- Icône décorative -->
+              <div style="flex-shrink:0;">
+                <div style="
+                  width:64px;
+                  height:64px;
+                  border-radius:18px;
+                  background:rgba(201,168,76,0.1);
+                  border:1.5px solid rgba(201,168,76,0.22);
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                ">
+                  <PhCookie style="width:30px; height:30px; color:#C9A84C;" weight="fill" />
+                </div>
+              </div>
+
+              <!-- Texte -->
+              <div>
+                <h3 style="
+                  font-size:18px;
+                  font-weight:900;
+                  color:#0D1B2A;
+                  letter-spacing:-0.02em;
+                  margin:0 0 10px;
+                  line-height:1.2;
+                ">
+                  Nous utilisons des cookies
+                </h3>
+                <p style="
+                  font-size:14px;
+                  color:rgba(13,27,42,0.55);
+                  line-height:1.75;
+                  margin:0;
+                  max-width:640px;
+                ">
+                  Luxy Formation utilise des cookies pour améliorer votre expérience de navigation,
+                  analyser notre trafic et personnaliser notre contenu.
+                  En continuant à utiliser notre site, vous acceptez notre utilisation des cookies.
+                  Consultez notre
+                  <Link
+                    :href="route('politique-cookies')"
+                    style="color:#C9A84C; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.3); transition:border-color 0.2s;"
+                    class="cookie-link"
+                  >
+                    politique des cookies
+                  </Link>
+                  pour en savoir plus.
+                </p>
+              </div>
+
+              <!-- Actions -->
+              <div style="display:flex; flex-direction:column; gap:12px; flex-shrink:0;">
+                <button
+                  @click="acceptAll"
+                  style="
+                    display:inline-flex;
+                    align-items:center;
+                    justify-content:center;
+                    gap:8px;
+                    background:#C9A84C;
+                    color:#0D1B2A;
+                    font-weight:800;
+                    font-size:14px;
+                    padding:13px 28px;
+                    border-radius:100px;
+                    border:none;
+                    cursor:pointer;
+                    font-family:inherit;
+                    white-space:nowrap;
+                    transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+                    min-width:200px;
+                  "
+                  class="btn-accept"
+                >
+                  <PhCheckCircle style="width:16px; height:16px;" weight="fill" />
+                  Tout accepter
+                </button>
+
+                <button
+                  @click="acceptNecessary"
+                  style="
+                    display:inline-flex;
+                    align-items:center;
+                    justify-content:center;
+                    gap:8px;
+                    background:transparent;
+                    color:rgba(13,27,42,0.6);
+                    font-weight:700;
+                    font-size:13px;
+                    padding:11px 28px;
+                    border-radius:100px;
+                    border:1.5px solid rgba(13,27,42,0.15);
+                    cursor:pointer;
+                    font-family:inherit;
+                    white-space:nowrap;
+                    transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+                    min-width:200px;
+                  "
+                  class="btn-refuse"
+                >
+                  Cookies nécessaires uniquement
+                </button>
+              </div>
+            </div>
+
+            <!-- Séparateur + options avancées -->
+            <div style="margin-top:32px; padding-top:24px; border-top:1px solid rgba(13,27,42,0.07); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+
+              <!-- Toggles cookies -->
+              <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+                <div
+                  v-for="cookie in cookieTypes"
+                  :key="cookie.key"
+                  style="display:flex; align-items:center; gap:10px;"
+                >
+                  <!-- Toggle -->
+                  <button
+                    @click="!cookie.required && toggleCookie(cookie.key)"
+                    style="
+                      position:relative;
+                      width:44px;
+                      height:24px;
+                      border-radius:100px;
+                      border:none;
+                      cursor:pointer;
+                      transition:background 0.25s;
+                      flex-shrink:0;
+                      padding:0;
+                    "
+                    :style="(cookie.required || preferences[cookie.key])
+                      ? 'background:#C9A84C; cursor:' + (cookie.required ? 'default' : 'pointer')
+                      : 'background:rgba(13,27,42,0.15);'"
+                    :disabled="cookie.required"
+                  >
+                    <span
+                      style="
+                        position:absolute;
+                        top:3px;
+                        width:18px;
+                        height:18px;
+                        border-radius:50%;
+                        background:white;
+                        box-shadow:0 1px 4px rgba(0,0,0,0.2);
+                        transition:left 0.25s cubic-bezier(0.16,1,0.3,1);
+                      "
+                      :style="(cookie.required || preferences[cookie.key]) ? 'left:23px;' : 'left:3px;'"
+                    />
+                  </button>
+
+                  <div>
+                    <div style="font-size:13px; font-weight:700; color:#0D1B2A; line-height:1.2;">
+                      {{ cookie.label }}
+                    </div>
+                    <div style="font-size:11px; color:rgba(13,27,42,0.4); margin-top:1px;">
+                      {{ cookie.required ? 'Toujours actif' : (preferences[cookie.key] ? 'Activé' : 'Désactivé') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bouton paramètres avancés + fermer -->
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button
+                  @click="savePreferences"
+                  style="
+                    display:inline-flex;
+                    align-items:center;
+                    gap:7px;
+                    background:transparent;
+                    color:#A07828;
+                    font-size:13px;
+                    font-weight:700;
+                    padding:9px 18px;
+                    border-radius:100px;
+                    border:1.5px solid rgba(201,168,76,0.3);
+                    cursor:pointer;
+                    font-family:inherit;
+                    transition:all 0.25s;
+                    white-space:nowrap;
+                  "
+                  class="btn-save"
+                >
+                  <PhFloppyDisk style="width:14px; height:14px;" />
+                  Enregistrer mes choix
+                </button>
+
+                <button
+                  @click="acceptNecessary"
+                  style="
+                    width:36px;
+                    height:36px;
+                    border-radius:50%;
+                    border:1.5px solid rgba(13,27,42,0.1);
+                    background:white;
+                    color:rgba(13,27,42,0.4);
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    cursor:pointer;
+                    transition:all 0.2s;
+                    flex-shrink:0;
+                  "
+                  class="btn-close"
+                  title="Fermer"
+                >
+                  <PhX style="width:16px; height:16px;" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </Transition>
-  </Teleport>
+    </div>
+  </Transition>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { Link } from '@inertiajs/vue3'
 import { route } from 'ziggy-js'
-import { PhCookie } from '@phosphor-icons/vue'
+import {
+  PhCookie, PhCheckCircle, PhX, PhFloppyDisk,
+} from '@phosphor-icons/vue'
 
-const showBanner = ref(false)
+const STORAGE_KEY = 'luxy_cookie_consent'
+
+const visible = ref(false)
+
+const preferences = reactive({
+  analytics:   false,
+  marketing:   false,
+  preferences: false,
+})
+
+const cookieTypes = [
+  {
+    key:      'necessary',
+    label:    'Nécessaires',
+    required: true,
+  },
+  {
+    key:      'analytics',
+    label:    'Analytiques',
+    required: false,
+  },
+  {
+    key:      'marketing',
+    label:    'Marketing',
+    required: false,
+  },
+  {
+    key:      'preferences',
+    label:    'Préférences',
+    required: false,
+  },
+]
 
 onMounted(() => {
-  if (!localStorage.getItem('luxy_cookie_consent')) {
-    setTimeout(() => { showBanner.value = true }, 2000)
+  const stored = localStorage.getItem(STORAGE_KEY)
+  if (!stored) {
+    // Léger délai pour une apparition non intempestive
+    setTimeout(() => { visible.value = true }, 1200)
   }
 })
 
-function acceptAll() {
-  localStorage.setItem('luxy_cookie_consent', JSON.stringify({ analytics: true, marketing: true }))
-  showBanner.value = false
+function toggleCookie(key) {
+  preferences[key] = !preferences[key]
 }
 
-function rejectAll() {
-  localStorage.setItem('luxy_cookie_consent', JSON.stringify({ analytics: false, marketing: false }))
-  showBanner.value = false
+function acceptAll() {
+  preferences.analytics   = true
+  preferences.marketing   = true
+  preferences.preferences = true
+  save({ all: true })
+}
+
+function acceptNecessary() {
+  preferences.analytics   = false
+  preferences.marketing   = false
+  preferences.preferences = false
+  save({ necessary: true })
+}
+
+function savePreferences() {
+  save({ ...preferences })
+}
+
+function save(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    accepted_at: new Date().toISOString(),
+    ...data,
+  }))
+  visible.value = false
 }
 </script>
 
 <style scoped>
-.cookie-enter-active, .cookie-leave-active { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-.cookie-enter-from, .cookie-leave-to { opacity: 0; transform: translateY(20px); }
+/* ── Transition ── */
+.cookie-slide-enter-active {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cookie-slide-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+.cookie-slide-enter-from,
+.cookie-slide-leave-to {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* ── Boutons ── */
+.btn-accept:hover {
+  background: #E2C97E !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201,168,76,0.4);
+}
+
+.btn-refuse:hover {
+  background: #FAF7F2 !important;
+  border-color: rgba(13,27,42,0.25) !important;
+  color: #0D1B2A !important;
+}
+
+.btn-save:hover {
+  background: rgba(201,168,76,0.08) !important;
+  border-color: rgba(201,168,76,0.45) !important;
+}
+
+.btn-close:hover {
+  background: #FAF7F2 !important;
+  color: #0D1B2A !important;
+  border-color: rgba(13,27,42,0.2) !important;
+}
+
+.cookie-link:hover {
+  border-color: #C9A84C !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .cookie-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cookie-inner {
+    padding: 32px 24px 36px !important;
+  }
+}
 </style>
