@@ -61,7 +61,7 @@
 
         <!-- Actions -->
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          
+          <a
             :href="`mailto:${contact.email}?subject=Re: ${contact.subject}`"
             style="display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:12px; border:none; background:#C9A84C; color:#0D1B2A; font-size:14px; font-weight:700; text-decoration:none;"
             class="reply-btn"
