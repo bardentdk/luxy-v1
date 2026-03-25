@@ -1,5 +1,5 @@
 <template>
-  <footer style="background:#0D1B2A; color:white;">
+  <footer style="background:#1C1410; color:white; position:relative; overflow:hidden;">
 
     <!-- Section principale -->
     <div style="max-width:1320px; margin:0 auto; padding:80px 3rem;">
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Bas du footer -->
-    <div style="border-top:1px solid rgba(255,255,255,0.07);">
+    <div style="border-top:1px solid rgba(255,255,255,0.06); background:#16110C;">
       <div style="max-width:1320px; margin:0 auto; padding:24px 3rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
         <p style="color:rgba(255,255,255,0.3); font-size:12px; margin:0;">
           © {{ currentYear }} Luxy Coaching &amp; Formation. Tous droits réservés.

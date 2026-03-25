@@ -3,25 +3,27 @@
     <Head title="Nos formations" />
 
     <!-- Hero -->
-    <section style="background:#0A1628; padding:140px 0 80px; position:relative; overflow:hidden;">
+    <section style="background:#FFFFFF; padding:140px 0 80px; position:relative; overflow:hidden;">
       <div class="orb orb-1" />
       <div class="hero-grid" />
+      <div style="position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(to bottom, transparent, #C9A84C, transparent);" />
+
       <div style="max-width:1320px; margin:0 auto; padding:0 3rem; position:relative; z-index:1;">
-        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); border-radius:100px; padding:8px 16px; margin-bottom:24px;">
+        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25); border-radius:100px; padding:8px 16px; margin-bottom:24px;">
           <PhGraduationCap style="width:14px; height:14px; color:#C9A84C;" />
-          <span style="color:#C9A84C; font-size:13px; font-weight:600;">Catalogue de formations</span>
+          <span style="color:#A07828; font-size:13px; font-weight:600;">Catalogue de formations</span>
         </div>
-        <h1 style="font-size:clamp(40px,5vw,72px); font-weight:900; color:white; letter-spacing:-0.03em; line-height:1.05; margin:0 0 20px;">
+        <h1 style="font-size:clamp(40px,5vw,72px); font-weight:900; color:#0D1B2A; letter-spacing:-0.03em; line-height:1.05; margin:0 0 20px;">
           Nos formations
         </h1>
-        <p style="font-size:18px; color:rgba(255,255,255,0.5); max-width:520px; line-height:1.75; margin:0;">
+        <p style="font-size:18px; color:rgba(13,27,42,0.55); max-width:520px; line-height:1.75; margin:0;">
           Choisissez votre domaine de formation et découvrez les programmes disponibles à La Réunion.
         </p>
       </div>
     </section>
 
     <!-- Contenu principal -->
-    <section style="background:#F1F3F7; min-height:60vh; padding:60px 0 100px;">
+    <section style="background:#FAF7F2; min-height:60vh; padding:60px 0 100px;">
       <div style="max-width:1320px; margin:0 auto; padding:0 3rem;">
 
         <!-- ─── VUE BENTO GRID — Choix du domaine ─── -->
@@ -52,14 +54,14 @@
                 <div class="bento-bg" />
 
                 <!-- Badge formations count -->
-                <div style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.15); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.2); border-radius:100px; padding:4px 12px; font-size:12px; font-weight:700; color:white;">
+                <div style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.18); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.25); border-radius:100px; padding:4px 12px; font-size:12px; font-weight:700; color:white; z-index:2;">
                   {{ cat.formations_count }} formation{{ cat.formations_count > 1 ? 's' : '' }}
                 </div>
 
                 <!-- Contenu -->
-                <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
+                <div style="position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:28px;">
                   <!-- Icône -->
-                  <div style="width:52px; height:52px; border-radius:14px; background:rgba(255,255,255,0.15); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; margin-bottom:16px; border:1px solid rgba(255,255,255,0.2);">
+                  <div style="width:52px; height:52px; border-radius:14px; background:rgba(255,255,255,0.18); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; margin-bottom:16px; border:1px solid rgba(255,255,255,0.25);">
                     <component :is="getPhosphorIcon(cat.icon)" style="width:26px; height:26px; color:white;" weight="fill" />
                   </div>
 
@@ -70,22 +72,22 @@
                     {{ cat.description }}
                   </p>
 
-                  <div style="display:inline-flex; align-items:center; gap:8px; color:white; font-size:13px; font-weight:700; background:rgba(255,255,255,0.12); padding:8px 14px; border-radius:100px; border:1px solid rgba(255,255,255,0.2); width:fit-content; transition:all 0.3s;" class="bento-cta">
+                  <div style="display:inline-flex; align-items:center; gap:8px; color:white; font-size:13px; font-weight:700; background:rgba(255,255,255,0.15); padding:8px 14px; border-radius:100px; border:1px solid rgba(255,255,255,0.25); width:fit-content; transition:all 0.3s;" class="bento-cta">
                     Voir les formations
                     <PhArrowRight style="width:14px; height:14px;" />
                   </div>
                 </div>
               </div>
 
-              <!-- Carte "Toutes les formations" si plus de 4 catégories -->
+              <!-- Carte "Toutes les formations" -->
               <div
                 v-if="categories.length > 0"
                 class="bento-card bento-card--all"
                 @click="selectAll"
                 style="background:white; border:2px dashed rgba(13,27,42,0.12);"
               >
-                <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px; text-align:center; gap:14px;">
-                  <div style="width:52px; height:52px; border-radius:14px; background:#F1F3F7; display:flex; align-items:center; justify-content:center;">
+                <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px; text-align:center; gap:14px; position:relative; z-index:2;">
+                  <div style="width:52px; height:52px; border-radius:14px; background:#FAF7F2; display:flex; align-items:center; justify-content:center;">
                     <PhSquaresFour style="width:26px; height:26px; color:rgba(13,27,42,0.4);" weight="fill" />
                   </div>
                   <div>
@@ -116,8 +118,8 @@
               </button>
 
               <div style="display:flex; align-items:center; gap:10px;">
-                <div style="width:36px; height:36px; border-radius:10px; background:#0D1B2A; display:flex; align-items:center; justify-content:center;">
-                  <component :is="getPhosphorIcon(selectedCategory.icon)" style="width:18px; height:18px; color:#C9A84C;" weight="fill" />
+                <div style="width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,#C9A84C,#E2C97E); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(201,168,76,0.3);">
+                  <component :is="getPhosphorIcon(selectedCategory.icon)" style="width:18px; height:18px; color:#0D1B2A;" weight="fill" />
                 </div>
                 <div>
                   <span style="font-size:18px; font-weight:900; color:#0D1B2A; letter-spacing:-0.01em;">{{ selectedCategory.name }}</span>
@@ -127,7 +129,7 @@
             </div>
 
             <!-- Filtres -->
-            <div style="background:white; border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:12px; box-shadow:0 1px 8px rgba(13,27,42,0.05); margin-bottom:28px; flex-wrap:wrap;">
+            <div style="background:white; border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:12px; box-shadow:0 1px 8px rgba(13,27,42,0.05); border:1px solid rgba(13,27,42,0.07); margin-bottom:28px; flex-wrap:wrap;">
               <div style="position:relative; flex:1; min-width:200px;">
                 <PhMagnifyingGlass style="width:16px; height:16px; color:rgba(13,27,42,0.3); position:absolute; left:12px; top:50%; transform:translateY(-50%);" />
                 <input
@@ -135,6 +137,7 @@
                   type="text"
                   placeholder="Rechercher une formation..."
                   style="width:100%; padding:9px 12px 9px 38px; border:1.5px solid rgba(13,27,42,0.1); border-radius:10px; font-size:14px; color:#0D1B2A; outline:none; font-family:inherit; background:#FAF7F2; box-sizing:border-box; transition:border-color 0.2s;"
+                  class="search-inp"
                   @input="applyFilters"
                 />
               </div>
@@ -164,7 +167,7 @@
             </div>
 
             <!-- État vide -->
-            <div v-else-if="formations" style="text-align:center; padding:80px 20px; background:white; border-radius:20px;">
+            <div v-else-if="formations" style="text-align:center; padding:80px 20px; background:white; border-radius:20px; border:1.5px dashed rgba(13,27,42,0.1);">
               <div style="width:72px; height:72px; border-radius:20px; background:rgba(201,168,76,0.08); border:2px dashed rgba(201,168,76,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
                 <PhGraduationCap style="width:32px; height:32px; color:rgba(201,168,76,0.4);" />
               </div>
@@ -172,15 +175,15 @@
               <p style="font-size:14px; color:rgba(13,27,42,0.45);">Essayez de modifier vos critères.</p>
             </div>
 
-            <!-- Chargement -->
+            <!-- Chargement skeleton -->
             <div v-else style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
-              <div v-for="i in 6" :key="i" style="background:white; border-radius:20px; overflow:hidden; border:1px solid rgba(13,27,42,0.06);">
-                <div style="height:180px; background:linear-gradient(90deg, #F1F3F7 25%, #E8EAF0 50%, #F1F3F7 75%); background-size:200% 100%;" class="skeleton-anim" />
-                <div style="padding:20px;">
-                  <div style="height:10px; background:#F1F3F7; border-radius:5px; margin-bottom:10px; width:40%;" class="skeleton-anim" />
-                  <div style="height:18px; background:#F1F3F7; border-radius:5px; margin-bottom:8px;" class="skeleton-anim" />
-                  <div style="height:18px; background:#F1F3F7; border-radius:5px; margin-bottom:20px; width:65%;" class="skeleton-anim" />
-                  <div style="height:40px; background:#F1F3F7; border-radius:100px;" class="skeleton-anim" />
+              <div v-for="i in 6" :key="i" style="background:white; border-radius:20px; overflow:hidden; border:1.5px solid rgba(13,27,42,0.07);">
+                <div style="height:180px;" class="skeleton-anim" />
+                <div style="padding:20px; display:flex; flex-direction:column; gap:8px;">
+                  <div style="height:10px; background:#EDE8DC; border-radius:5px; width:35%;" />
+                  <div style="height:18px; background:#EDE8DC; border-radius:5px;" />
+                  <div style="height:14px; background:#EDE8DC; border-radius:5px; width:65%;" />
+                  <div style="height:40px; background:#EDE8DC; border-radius:100px; margin-top:8px;" />
                 </div>
               </div>
             </div>
@@ -239,7 +242,6 @@ const levels = [
   { value: 'avance',       label: 'Avancé' },
 ]
 
-// Map d'icônes Phosphor
 const iconMap = {
   PhBriefcase:        PhBriefcase,
   PhBooks:            PhBooks,
@@ -258,12 +260,11 @@ function getPhosphorIcon(iconName) {
   return iconMap[iconName] ?? PhGraduationCap
 }
 
-// Total formations
 const totalFormations = computed(() =>
   props.categories.reduce((sum, c) => sum + (c.formations_count ?? 0), 0)
 )
 
-// Couleurs Bento par index
+// Bento garde ses dégradés riches — c'est une zone graphique intentionnellement colorée
 const bentoColors = [
   'linear-gradient(135deg, #0D1B2A 0%, #1A2D42 100%)',
   'linear-gradient(135deg, #C9A84C 0%, #B8943C 100%)',
@@ -277,7 +278,6 @@ function getBentoAccent(i) {
   return `background:${bentoColors[i % bentoColors.length]};`
 }
 
-// Taille bento : grande (1), moyenne (2), standard
 function getBentoSize(i) {
   if (i === 0) return 'large'
   if (i === 1) return 'wide'
@@ -289,166 +289,89 @@ function selectCategory(cat) {
   formations.value = null
   localSearch.value = ''
   localLevel.value  = ''
-
   router.get(route('formations.index'), { categorie: cat.slug }, {
-    preserveState:  true,
-    preserveScroll: false,
-    only:           ['formations', 'selectedCategory'],
-    onSuccess: (page) => {
-      formations.value = page.props.formations
-    },
+    preserveState: true, preserveScroll: false, only: ['formations', 'selectedCategory'],
+    onSuccess: (page) => { formations.value = page.props.formations },
   })
 }
 
 function selectAll() {
   selectedCategory.value = { name: 'Toutes les formations', icon: 'PhSquaresFour', slug: null }
   formations.value = null
-
   router.get(route('formations.index'), {}, {
-    preserveState: true,
-    only: ['formations'],
-    onSuccess: (page) => {
-      formations.value = page.props.formations
-    },
+    preserveState: true, only: ['formations'],
+    onSuccess: (page) => { formations.value = page.props.formations },
   })
 }
 
-function setLevel(val) {
-  localLevel.value = val
-  applyFilters()
-}
+function setLevel(val) { localLevel.value = val; applyFilters() }
 
 function applyFilters() {
-  const params = {
+  router.get(route('formations.index'), {
     categorie: selectedCategory.value?.slug ?? undefined,
     search:    localSearch.value || undefined,
     level:     localLevel.value  || undefined,
-  }
-
-  router.get(route('formations.index'), params, {
-    preserveState: true,
-    replace:       true,
-    only:          ['formations'],
-    onSuccess: (page) => {
-      formations.value = page.props.formations
-    },
+  }, {
+    preserveState: true, replace: true, only: ['formations'],
+    onSuccess: (page) => { formations.value = page.props.formations },
   })
 }
 
 function goToPage(page) {
-  const params = {
+  router.get(route('formations.index'), {
     categorie: selectedCategory.value?.slug ?? undefined,
     search:    localSearch.value || undefined,
-    level:     localLevel.value  || undefined,
-    page,
-  }
-  router.get(route('formations.index'), params, {
-    preserveState: true,
-    only: ['formations'],
+    level:     localLevel.value  || undefined, page,
+  }, {
+    preserveState: true, only: ['formations'],
     onSuccess: (p) => { formations.value = p.props.formations },
   })
 }
 
-// Sync avec props si navigation directe avec URL
 watch(() => props.formations,       (v) => { if (v) formations.value = v })
 watch(() => props.selectedCategory, (v) => { if (v) selectedCategory.value = v })
 </script>
 
 <style scoped>
 .orb { position:absolute; border-radius:50%; filter:blur(100px); pointer-events:none; }
-.orb-1 { width:600px; height:600px; background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%); top:-200px; right:-100px; }
-.hero-grid { position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size:80px 80px; -webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%); mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%); }
+.orb-1 { width:600px; height:600px; background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%); top:-200px; right:-100px; animation:floatOrb 10s ease-in-out infinite; }
+@keyframes floatOrb { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-24px)} }
+.hero-grid { position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(13,27,42,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,0.04) 1px,transparent 1px); background-size:80px 80px; -webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%); mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%); }
 
-/* ── Bento Grid ─────────────────────────── */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 200px;
-  gap: 16px;
-}
+/* ── Bento Grid ───────── */
+.bento-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:200px; gap:16px; }
+.bento-card { border-radius:20px; position:relative; overflow:hidden; cursor:pointer; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); border:1px solid rgba(255,255,255,0.1); }
+.bento-card:hover { transform:translateY(-4px) scale(1.01); box-shadow:0 20px 60px rgba(13,27,42,0.25); }
+.bento-card:hover .bento-cta { background:rgba(255,255,255,0.22) !important; gap:12px !important; }
+.bento-card:hover .bento-bg { opacity:1 !important; transform:scale(1.1); }
+.bento-card--large { grid-column:span 2; grid-row:span 2; }
+.bento-card--wide  { grid-column:span 1; grid-row:span 2; }
+.bento-card--normal{ grid-column:span 1; grid-row:span 1; }
+.bento-card--all   { grid-column:span 1; grid-row:span 1; }
+.bento-bg { position:absolute; inset:0; background:rgba(255,255,255,0.04); opacity:0; transition:all 0.4s ease; }
+.bento-card--all:hover { border-color:rgba(13,27,42,0.2) !important; }
+.bento-card--all:hover .all-cta { background:#0D1B2A !important; color:white !important; border-color:#0D1B2A !important; }
 
-.bento-card {
-  border-radius: 20px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.bento-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 60px rgba(13,27,42,0.25);
-}
-.bento-card:hover .bento-cta {
-  background: rgba(255,255,255,0.2) !important;
-  gap: 12px !important;
-}
-.bento-card:hover .bento-bg {
-  opacity: 1 !important;
-  transform: scale(1.1);
-}
+/* ── Transitions ─────── */
+.view-switch-enter-active { transition:all 0.4s cubic-bezier(0.16,1,0.3,1); }
+.view-switch-leave-active { transition:all 0.25s ease; }
+.view-switch-enter-from   { opacity:0; transform:translateY(16px); }
+.view-switch-leave-to     { opacity:0; transform:translateY(-8px); }
 
-.bento-card--large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-.bento-card--wide {
-  grid-column: span 1;
-  grid-row: span 2;
-}
-.bento-card--normal {
-  grid-column: span 1;
-  grid-row: span 1;
-}
-.bento-card--all {
-  grid-column: span 1;
-  grid-row: span 1;
-}
+.back-pill:hover { background:#FAF7F2 !important; border-color:rgba(201,168,76,0.2) !important; }
+.search-inp:focus { border-color:#C9A84C !important; background:white !important; }
 
-.bento-bg {
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.04);
-  opacity: 0;
-  transition: all 0.4s ease;
-}
+/* ── Skeleton ─────────── */
+@keyframes skeleton { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+.skeleton-anim { background:linear-gradient(90deg,#EDE8DC 25%,#E4DED2 50%,#EDE8DC 75%); background-size:200% 100%; animation:skeleton 1.5s ease-in-out infinite; }
 
-.bento-card--all:hover {
-  border-color: rgba(13,27,42,0.25) !important;
+@media (max-width:1024px) {
+  .bento-grid { grid-template-columns:repeat(2,1fr); }
+  .bento-card--large { grid-column:span 2; grid-row:span 1; }
+  .bento-card--wide  { grid-column:span 1; grid-row:span 1; }
 }
-.bento-card--all:hover .all-cta {
-  background: #0D1B2A !important;
-  color: white !important;
-  border-color: #0D1B2A !important;
-}
-
-/* ── Transitions ────────────────────────── */
-.view-switch-enter-active { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-.view-switch-leave-active { transition: all 0.25s ease; }
-.view-switch-enter-from   { opacity: 0; transform: translateY(16px); }
-.view-switch-leave-to     { opacity: 0; transform: translateY(-8px); }
-
-.back-pill:hover { background:#F1F3F7 !important; color:#0D1B2A !important; }
-
-/* ── Skeleton ───────────────────────────── */
-@keyframes skeleton {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-.skeleton-anim {
-  background: linear-gradient(90deg, #F1F3F7 25%, #E4E7EE 50%, #F1F3F7 75%);
-  background-size: 200% 100%;
-  animation: skeleton 1.5s ease-in-out infinite;
-}
-
-/* ── Responsive ─────────────────────────── */
-@media (max-width: 1024px) {
-  .bento-grid { grid-template-columns: repeat(2, 1fr); }
-  .bento-card--large { grid-column: span 2; grid-row: span 1; }
-  .bento-card--wide  { grid-column: span 1; grid-row: span 1; }
-}
-@media (max-width: 640px) {
-  .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 160px; }
-  .bento-card--large, .bento-card--wide { grid-column: span 1; grid-row: span 1; }
+@media (max-width:640px) {
+  .bento-grid { grid-template-columns:1fr; grid-auto-rows:160px; }
+  .bento-card--large, .bento-card--wide { grid-column:span 1; grid-row:span 1; }
 }
 </style>

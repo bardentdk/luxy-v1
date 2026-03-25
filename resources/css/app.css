@@ -10,44 +10,40 @@
 
 
 @theme {
-    /* ── Typographie ── */
-    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
-    /* ── Palette principale ── */
-    --color-navy:        #0D1B2A;
-    --color-navy-light:  #1A2D42;
-    --color-navy-muted:  #243B55;
-    --color-gold:        #C9A84C;
-    --color-gold-light:  #E2C97E;
-    --color-gold-dark:   #A07C2A;
-    --color-cream:       #FAF7F2;
-    --color-surface:     #F4F1EC;
+  /* ── Palette claire & dorée ── */
+  --color-navy:        #0D1B2A;
+  --color-navy-light:  #1A2D42;
+  --color-navy-muted:  #243B55;
+  --color-gold:        #C9A84C;
+  --color-gold-light:  #E2C97E;
+  --color-gold-dark:   #A07828;
+  --color-gold-10:     rgba(201,168,76,0.10);
+  --color-gold-15:     rgba(201,168,76,0.15);
+  --color-gold-20:     rgba(201,168,76,0.20);
 
-    /* ── Couleurs sémantiques ── */
-    --color-primary:     var(--color-navy);
-    --color-accent:      var(--color-gold);
-    --color-success:     #22c55e;
-    --color-warning:     #f59e0b;
-    --color-danger:      #ef4444;
-    --color-info:        #3b82f6;
+  /* ── Fonds clairs ── */
+  --color-white:       #FFFFFF;
+  --color-cream:       #FAF7F2;
+  --color-cream-2:     #F4EFE4;
+  --color-surface:     #EDE8DC;
+  --color-warm-dark:   #1C1410;
 
-    /* ── Tailles écran ── */
-    --breakpoint-xs:     480px;
-    --breakpoint-sm:     640px;
-    --breakpoint-md:     768px;
-    --breakpoint-lg:     1024px;
-    --breakpoint-xl:     1280px;
-    --breakpoint-2xl:    1536px;
+  /* ── Sémantiques ── */
+  --color-primary:     var(--color-navy);
+  --color-accent:      var(--color-gold);
+  --color-success:     #22c55e;
+  --color-warning:     #f59e0b;
+  --color-danger:      #ef4444;
+  --color-info:        #3b82f6;
 
-    /* ── Ombres ── */
-    --shadow-gold:       0 4px 32px rgba(201, 168, 76, 0.20);
-    --shadow-navy:       0 8px 48px rgba(13, 27, 42, 0.18);
-    --shadow-card:       0 2px 24px rgba(13, 27, 42, 0.08);
-    --shadow-hover:      0 8px 40px rgba(13, 27, 42, 0.15);
+  --shadow-gold:   0 4px 32px rgba(201,168,76,0.22);
+  --shadow-card:   0 2px 24px rgba(13,27,42,0.07);
+  --shadow-hover:  0 8px 40px rgba(13,27,42,0.13);
 
-    /* ── Transitions ── */
-    --transition-base:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Reset & Base ── */
@@ -227,4 +223,28 @@ html.lenis {
     outline: 2px solid var(--color-gold);
     outline-offset: 3px;
     border-radius: 4px;
+}
+
+.section-light  { background: #FFFFFF; }
+.section-cream  { background: #FAF7F2; }
+.section-cream2 { background: #F4EFE4; }
+
+/* Bande dorée verticale décorative */
+.gold-stripe {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, transparent, #C9A84C 30%, #E2C97E 70%, transparent);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Grille de fond subtile */
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(13,27,42,0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
 }
