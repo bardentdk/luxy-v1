@@ -14,11 +14,11 @@ class UserSeeder extends Seeder
         $superAdminRole = Role::where('slug', 'super-admin')->first();
 
         User::updateOrCreate(
-            ['email' => 'admin@luxyformation.re'],
+            ['email' => 'velt.reu@gmail.com'],
             [
                 'first_name' => 'Super',
                 'last_name'  => 'Admin',
-                'password'   => Hash::make('Luxy@2026!'),
+                'password'   => Hash::make('Noirammarion13@'),
                 'role_id'    => $superAdminRole?->id,
                 'is_active'  => true,
                 'email_verified_at' => now(),
