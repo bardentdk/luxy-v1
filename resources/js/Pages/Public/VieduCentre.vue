@@ -87,8 +87,8 @@
           <div
             style="
               position:absolute;
-              top:60px;
-              right:6%;
+              top:160px;
+              right:0%;
               width:52px;
               height:52px;
               border-radius:14px;
@@ -109,7 +109,7 @@
           <div
             style="
               position:absolute;
-              top:140px;
+              top:190px;
               left:8%;
               background:white;
               border-radius:14px;

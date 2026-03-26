@@ -9,9 +9,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
+use App\Services\GroqService;
 
 class FormationController extends Controller
 {
+    public function __construct(private readonly GroqService $groqService)
+    {}
     /**
      * Page catalogue — Bento Grid des domaines.
      */
@@ -133,6 +136,16 @@ class FormationController extends Controller
                 'has_certification'  => $formation->has_certification,
                 'objectives'         => $formation->objectives ?? [],
                 'prerequisites'      => $formation->prerequisites ?? [],
+                // ── Nouveaux champs ──
+                'participant_profile' => $formation->participant_profile,
+                'accessibility'       => $formation->accessibility,
+                'access_delay'        => $formation->access_delay,
+                'teaching_methods'    => $formation->teaching_methods,
+                'teaching_resources'  => $formation->teaching_resources,
+                'evaluation_methods'  => $formation->evaluation_methods,
+                'success_rate'        => $formation->success_rate,
+                'satisfaction_rate'   => $formation->satisfaction_rate,
+                'employment_rate'     => $formation->employment_rate,
                 'program'            => $formation->program ?? [],
                 'average_rating'     => $formation->average_rating,
                 'reviews_count'      => $formation->approved_reviews_count,
@@ -182,21 +195,22 @@ class FormationController extends Controller
      */
     public function downloadPdf(string $slug): Response
     {
-        $formation = Formation::with(['category', 'sessions' => fn($q) => $q->published()->upcoming()])
+        $formation = Formation::with([
+            'category',
+            'sessions' => fn($q) => $q->where('is_published', true)->orderBy('start_date'),
+        ])
             ->published()
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $pdf = Pdf::loadView('pdf.formation', [
-            'formation' => $formation,
-        ])
-        ->setPaper('a4', 'portrait')
-        ->setOptions([
-            'defaultFont'      => 'DejaVu Sans',
-            'isHtml5ParserEnabled' => true,
-            'isRemoteEnabled'  => false,
-            'dpi'              => 150,
-        ]);
+        $pdf = Pdf::loadView('pdf.formation', compact('formation'))
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'defaultFont'          => 'DejaVu Sans',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => false,
+                'dpi'                  => 150,
+            ]);
 
         return $pdf->download("fiche-formation-{$formation->slug}.pdf");
     }

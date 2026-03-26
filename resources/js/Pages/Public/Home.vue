@@ -5,7 +5,7 @@
     <!-- ═══════════════════════════════════════════════════
          HERO
     ═══════════════════════════════════════════════════ -->
-    <section style="position:relative; min-height:100vh; display:flex; align-items:center; background:#FFFFFF; overflow:hidden;">
+    <section :style="{ backgroundImg: `url(${bgHeroBanner})` }" style="position:relative; min-height:100vh; display:flex; align-items:center; background:#FFFFFF; overflow:hidden;">
 
       <!-- Orbes décoratifs animés -->
       <div class="orb orb-1" />
@@ -395,7 +395,7 @@ import {
   PhCertificate, PhBriefcase, PhChalkboardTeacher, PhUsers,
   PhCheckCircle, PhLockSimple, PhHeadset, PhMedal,
 } from '@phosphor-icons/vue'
-
+const bgHeroBanner = "https://f.hellowork.com/helloworkplace/2019/02/formation-professionnelle.jpg/uuu";
 const props = defineProps({
   featuredFormations: Array,
   featuredReviews:    Array,

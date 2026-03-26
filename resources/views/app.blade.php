@@ -6,8 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
+    <link rel="icon" type="image/svg+xml" href="https://luxyformation.re/wp-content/uploads/2024/03/cropped-logo-luxy-dore-192x192.png">
+    <link rel="apple-touch-icon" href="https://luxyformation.re/wp-content/uploads/2024/03/cropped-logo-luxy-dore-192x192.png/apple-touch-icon.png">
 
     <!-- SEO -->
     <title inertia>{{ config('app.name') }}</title>

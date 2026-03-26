@@ -22,6 +22,17 @@ class Formation extends Model
         'slug',
         'short_description',
         'content',
+        // ── Nouveaux champs pédagogiques ──
+        'participant_profile',
+        'accessibility',
+        'access_delay',
+        'teaching_methods',
+        'teaching_resources',
+        'evaluation_methods',
+        'success_rate',
+        'satisfaction_rate',
+        'employment_rate',
+        // ── Fin nouveaux champs ──
         'thumbnail',
         'banner',
         'level',
@@ -50,6 +61,9 @@ class Formation extends Model
         'published_at'      => 'datetime',
         'price'             => 'decimal:2',
         'price_promo'       => 'decimal:2',
+        'success_rate'      => 'decimal:2',
+        'satisfaction_rate' => 'decimal:2',
+        'employment_rate'   => 'decimal:2',
     ];
 
     // ── Slug automatique ───────────────────────────────────
@@ -115,6 +129,18 @@ class Formation extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function sessions(): HasMany
+    {
+        return $this->hasMany(FormationSession::class);
+    }
+
+    public function upcomingSessions(): HasMany
+    {
+        return $this->hasMany(FormationSession::class)
+                    ->published()
+                    ->upcoming();
     }
 
     // ── Accessors ──────────────────────────────────────────
@@ -185,17 +211,5 @@ class Formation extends Model
     public function incrementViewCount(): void
     {
         $this->increment('view_count');
-    }
-
-    public function sessions(): HasMany
-    {
-        return $this->hasMany(FormationSession::class);
-    }
-
-    public function upcomingSessions(): HasMany
-    {
-        return $this->hasMany(FormationSession::class)
-                    ->published()
-                    ->upcoming();
     }
 }

@@ -19,6 +19,7 @@ use App\Http\Controllers\Public\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SessionController;
 use App\Http\Controllers\Admin\FormationCategoryController;
+use App\Http\Controllers\Admin\GroqController;
 
 
 // ═══════════════════════════════════════════════════════════
@@ -106,6 +107,10 @@ Route::prefix('admin')
         // ── Dashboard ─────────────────────────────────────
         Route::get('/', [DashboardController::class, 'index'])
             ->name('dashboard');
+
+        // ── IA ──────────────────────────────────────────────────────
+        Route::post('/ai/generate', [GroqController::class, 'generate'])
+            ->name('ai.generate');
 
         // ── Formations ────────────────────────────────────
         Route::get('/formations', [AdminFormationController::class, 'index'])
