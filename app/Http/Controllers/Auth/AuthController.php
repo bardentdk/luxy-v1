@@ -21,6 +21,7 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): RedirectResponse
     {
+        // ── Votre logique d'auth originale ──────────────
         $success = $this->authService->attemptLogin(
             email:    $request->email,
             password: $request->password,
@@ -33,8 +34,22 @@ class AuthController extends Controller
             ])->onlyInput('email');
         }
 
-        return redirect()->intended(route('admin.dashboard'))
-            ->with('success', 'Bienvenue, ' . auth()->user()->first_name . ' !');
+        // ── Redirect selon le rôle ──────────────────────
+        $user = auth()->user();
+
+        if ($user->isAdmin()) {
+            return redirect()->intended(route('admin.dashboard'))
+                ->with('success', 'Bienvenue, ' . $user->first_name . ' !');
+        }
+
+        if ($user->hasRole('commercial')) {
+            return redirect()->intended(route('commercial.dashboard'))
+                ->with('success', 'Bienvenue, ' . $user->first_name . ' !');
+        }
+
+        // Rôle non reconnu → accueil public
+        return redirect()->route('home')
+            ->with('success', 'Bienvenue, ' . $user->first_name . ' !');
     }
 
     public function logout(): RedirectResponse

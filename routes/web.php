@@ -21,6 +21,17 @@ use App\Http\Controllers\Admin\SessionController;
 use App\Http\Controllers\Admin\FormationCategoryController;
 use App\Http\Controllers\Admin\GroqController;
 
+// ═══════════════════════════════════════════════════════════
+// IMPORTS COMMERCIAL
+// ═══════════════════════════════════════════════════════════
+use App\Http\Controllers\Commercial\CommercialDashboardController;
+use App\Http\Controllers\Commercial\CrmContactController;
+use App\Http\Controllers\Commercial\DealController;
+use App\Http\Controllers\Commercial\QuoteController;
+use App\Http\Controllers\Commercial\CommercialProductController;
+use App\Http\Controllers\Commercial\EmailSequenceController;
+use App\Http\Controllers\Commercial\PipelineController;
+use App\Http\Controllers\Commercial\ActivityController;
 
 // ═══════════════════════════════════════════════════════════
 // ROUTES PUBLIQUES
@@ -269,4 +280,117 @@ Route::prefix('admin')
         Route::put('/profil', [ProfileController::class, 'update'])
             ->name('profile.update');
             
+    });
+
+
+    // ═══════════════════════════════════════════════════════════
+// ESPACE COMMERCIAL
+// ═══════════════════════════════════════════════════════════
+
+Route::prefix('commercial')
+    ->name('commercial.')
+    ->middleware(['auth', 'commercial'])
+    ->group(function () {
+
+        // ── Dashboard ─────────────────────────────────────
+        Route::get('/', [CommercialDashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // ── Pipeline Kanban ────────────────────────────────
+        Route::get('/pipeline', [PipelineController::class, 'index'])
+            ->name('pipeline');
+        Route::patch('/pipeline/{deal}/move', [PipelineController::class, 'move'])
+            ->name('pipeline.move');
+
+        // ── Contacts CRM ──────────────────────────────────
+        Route::get('/contacts', [CrmContactController::class, 'index'])
+            ->name('contacts.index');
+        Route::get('/contacts/creer', [CrmContactController::class, 'create'])
+            ->name('contacts.create');
+        Route::post('/contacts', [CrmContactController::class, 'store'])
+            ->name('contacts.store');
+        Route::get('/contacts/{contact}', [CrmContactController::class, 'show'])
+            ->name('contacts.show');
+        Route::get('/contacts/{contact}/modifier', [CrmContactController::class, 'edit'])
+            ->name('contacts.edit');
+        Route::put('/contacts/{contact}', [CrmContactController::class, 'update'])
+            ->name('contacts.update');
+        Route::delete('/contacts/{contact}', [CrmContactController::class, 'destroy'])
+            ->name('contacts.destroy');
+        Route::post('/contacts/import-leads', [CrmContactController::class, 'importFromLeads'])
+            ->name('contacts.import');
+
+        // ── Deals ─────────────────────────────────────────
+        Route::get('/deals', [DealController::class, 'index'])
+            ->name('deals.index');
+        Route::post('/deals', [DealController::class, 'store'])
+            ->name('deals.store');
+        Route::get('/deals/{deal}', [DealController::class, 'show'])
+            ->name('deals.show');
+        Route::put('/deals/{deal}', [DealController::class, 'update'])
+            ->name('deals.update');
+        Route::delete('/deals/{deal}', [DealController::class, 'destroy'])
+            ->name('deals.destroy');
+
+        // ── Activités ──────────────────────────────────────
+        Route::post('/activites', [ActivityController::class, 'store'])
+            ->name('activities.store');
+        Route::patch('/activites/{activity}/done', [ActivityController::class, 'markDone'])
+            ->name('activities.done');
+        Route::delete('/activites/{activity}', [ActivityController::class, 'destroy'])
+            ->name('activities.destroy');
+
+        // ── Devis ─────────────────────────────────────────
+        Route::get('/devis', [QuoteController::class, 'index'])
+            ->name('quotes.index');
+        Route::get('/devis/creer', [QuoteController::class, 'create'])
+            ->name('quotes.create');
+        Route::post('/devis', [QuoteController::class, 'store'])
+            ->name('quotes.store');
+        Route::get('/devis/{quote}', [QuoteController::class, 'show'])
+            ->name('quotes.show');
+        Route::get('/devis/{quote}/modifier', [QuoteController::class, 'edit'])
+            ->name('quotes.edit');
+        Route::put('/devis/{quote}', [QuoteController::class, 'update'])
+            ->name('quotes.update');
+        Route::delete('/devis/{quote}', [QuoteController::class, 'destroy'])
+            ->name('quotes.destroy');
+        Route::post('/devis/{quote}/envoyer', [QuoteController::class, 'send'])
+            ->name('quotes.send');
+        Route::patch('/devis/{quote}/statut', [QuoteController::class, 'updateStatus'])
+            ->name('quotes.status');
+        Route::get('/devis/{quote}/pdf', [QuoteController::class, 'downloadPdf'])
+            ->name('quotes.pdf');
+
+        // ── Produits ──────────────────────────────────────
+        Route::get('/produits', [CommercialProductController::class, 'index'])
+            ->name('products.index');
+        Route::post('/produits', [CommercialProductController::class, 'store'])
+            ->name('products.store');
+        Route::put('/produits/{product}', [CommercialProductController::class, 'update'])
+            ->name('products.update');
+        Route::delete('/produits/{product}', [CommercialProductController::class, 'destroy'])
+            ->name('products.destroy');
+        Route::post('/produits/sync-formations', [CommercialProductController::class, 'syncFromFormations'])
+            ->name('products.sync');
+
+        // ── Séquences email ────────────────────────────────
+        Route::get('/sequences', [EmailSequenceController::class, 'index'])
+            ->name('sequences.index');
+        Route::post('/sequences', [EmailSequenceController::class, 'store'])
+            ->name('sequences.store');
+        Route::get('/sequences/{sequence}', [EmailSequenceController::class, 'show'])
+            ->name('sequences.show');
+        Route::put('/sequences/{sequence}', [EmailSequenceController::class, 'update'])
+            ->name('sequences.update');
+        Route::delete('/sequences/{sequence}', [EmailSequenceController::class, 'destroy'])
+            ->name('sequences.destroy');
+        Route::post('/sequences/{sequence}/steps', [EmailSequenceController::class, 'addStep'])
+            ->name('sequences.steps.store');
+        Route::put('/sequences/{sequence}/steps/{step}', [EmailSequenceController::class, 'updateStep'])
+            ->name('sequences.steps.update');
+        Route::delete('/sequences/{sequence}/steps/{step}', [EmailSequenceController::class, 'destroyStep'])
+            ->name('sequences.steps.destroy');
+        Route::post('/sequences/{sequence}/declencher/{contact}', [EmailSequenceController::class, 'trigger'])
+            ->name('sequences.trigger');
     });

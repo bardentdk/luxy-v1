@@ -298,7 +298,7 @@
 
             <!-- Filtres -->
             <div style="background:white; border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:12px; box-shadow:0 1px 8px rgba(13,27,42,0.05); border:1px solid rgba(13,27,42,0.07); margin-bottom:28px; flex-wrap:wrap;">
-              <div style="position:relative; flex:1; min-width:200px;">
+              <div style="position:relative; flex:1; min-width:300px;">
                 <PhMagnifyingGlass style="width:16px; height:16px; color:rgba(13,27,42,0.3); position:absolute; left:12px; top:50%; transform:translateY(-50%);" />
                 <input
                   v-model="localSearch"
@@ -326,7 +326,7 @@
             </div>
 
             <!-- Grille formations -->
-            <div v-if="formations?.data?.length" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+            <div v-if="formations?.data?.length" style="display:grid; grid-template-columns:repeat(2,1fr); gap:24px;">
               <FormationCard
                 v-for="formation in formations.data"
                 :key="formation.id"

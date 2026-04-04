@@ -5,7 +5,7 @@
       ? 'background:rgba(255,255,255,1); backdrop-filter:blur(20px); box-shadow:0 1px 0 rgba(13,27,42,0.08), 0 4px 24px rgba(13,27,42,0.06); padding:10px 0;'
       : 'background:rgba(255,255,255,0.85); backdrop-filter:blur(12px); border-bottom:1px solid rgba(13,27,42,0.06); padding:18px 0;'"
   >
-    <nav style="max-width:1320px; margin:0 auto; padding:0 3rem; display:flex; align-items:center; gap:40px;">
+    <nav style="max-width:1320px; margin:0 auto; padding:0 3rem; display:flex; align-items:center; gap:40px; justify-content: space-between;">
 
       <!-- Logo -->
       <Link :href="route('home')" style="display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0;">
