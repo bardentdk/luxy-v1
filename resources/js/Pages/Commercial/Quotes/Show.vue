@@ -27,7 +27,7 @@
             </span>
           </div>
           <div style="font-size:13px; color:rgba(13,27,42,0.45);">
-            Émis le {{ quote.issued_at }} · Expire le {{ quote.expires_at }}
+            Émis le {{ formatDate(quote.issued_at) }} · Expire le {{ formatDate(quote.expires_at) }}
             <span v-if="quote.sent_at"> · Envoyé le {{ quote.sent_at }}</span>
           </div>
         </div>
@@ -211,11 +211,15 @@
               </div>
               <div class="info-row">
                 <span class="info-key">Émis le</span>
-                <span class="info-val">{{ quote.issued_at }}</span>
+                <!-- <span class="info-val">{{ quote.issued_at }}</span> -->
+                 <span class="info-val">{{ formatDate(quote.issued_at) }}</span>
+
               </div>
               <div class="info-row">
                 <span class="info-key">Expire le</span>
-                <span class="info-val">{{ quote.expires_at }}</span>
+                <!-- <span class="info-val">{{ quote.expires_at }}</span> -->
+                 <span class="info-val">{{ formatDate(quote.expires_at) }}</span>
+
               </div>
               <div v-if="quote.sent_at" class="info-row">
                 <span class="info-key">Envoyé le</span>
@@ -308,7 +312,11 @@ const availableStatuses = [
   { value: 'refused',  label: 'Refusé',   color: '#EF4444' },
   { value: 'expired',  label: 'Expiré',   color: '#9CA3AF' },
 ]
-
+function formatDate(dateStr) {
+  if (!dateStr) return '—'
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+}
 function formatCurrency(val) {
   return new Intl.NumberFormat('fr-FR', {
     style: 'currency', currency: 'EUR', maximumFractionDigits: 2,

@@ -4,16 +4,13 @@ namespace App\Services\Commercial;
 
 use App\Models\Quote;
 use App\Models\QuoteItem;
-use App\Models\CrmContact;
-use App\Services\BrevoService;
+use App\Models\EmailLog;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 
 class QuoteService
 {
-    public function __construct(private readonly BrevoService $brevoService)
-    {}
-
     public function create(array $data, array $items): Quote
     {
         $quote = Quote::create([
@@ -52,16 +49,50 @@ class QuoteService
         return $quote->fresh(['contact', 'items']);
     }
 
+    /**
+     * Envoi du devis par email via l'API Brevo (Http:: natif).
+     */
     public function send(Quote $quote): void
     {
         $contact = $quote->contact;
+        $html    = view('emails.quote', ['quote' => $quote->load('items')])->render();
+        $apiKey  = config('services.brevo.api_key');
 
-        $this->brevoService->sendTransactional(
-            to:      $contact->email,
-            toName:  $contact->full_name,
-            subject: "Votre devis {$quote->reference} — Luxy Formation",
-            html:    view('emails.quote', ['quote' => $quote])->render(),
-        );
+        // ── Envoi via Brevo API ───────────────────────────
+        $response = Http::withHeaders([
+            'api-key'      => $apiKey,
+            'Content-Type' => 'application/json',
+        ])->post('https://api.brevo.com/v3/smtp/email', [
+            'sender'      => [
+                'name'  => config('mail.from.name', 'Luxy Formation'),
+                'email' => config('mail.from.address', 'contact@luxyformation.re'),
+            ],
+            'to'          => [[
+                'name'  => $contact->full_name,
+                'email' => $contact->email,
+            ]],
+            'subject'     => "Votre devis {$quote->reference} — Luxy Formation",
+            'htmlContent' => $html,
+        ]);
+
+        // ── Log email ─────────────────────────────────────
+        EmailLog::create([
+            'crm_contact_id' => $contact->id,
+            'quote_id'       => $quote->id,
+            'to_email'       => $contact->email,
+            'to_name'        => $contact->full_name,
+            'subject'        => "Votre devis {$quote->reference} — Luxy Formation",
+            'body_html'      => $html,
+            'status'         => $response->successful() ? 'sent' : 'failed',
+            'brevo_message_id' => $response->json('messageId') ?? null,
+            'sent_at'        => now(),
+        ]);
+
+        if (! $response->successful()) {
+            throw new \RuntimeException(
+                'Erreur Brevo : ' . $response->body()
+            );
+        }
 
         $quote->update([
             'status'  => 'sent',
@@ -71,7 +102,9 @@ class QuoteService
 
     public function downloadPdf(Quote $quote): Response
     {
-        $pdf = Pdf::loadView('pdf.quote', ['quote' => $quote->load(['contact', 'items.product', 'createdBy'])])
+        $pdf = Pdf::loadView('pdf.quote', [
+            'quote' => $quote->load(['contact', 'items.product', 'createdBy']),
+        ])
             ->setPaper('a4', 'portrait')
             ->setOptions([
                 'defaultFont'          => 'DejaVu Sans',
